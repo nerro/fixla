@@ -1,16 +1,21 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 )
 
-func init() {
+func main() {
+	// define available commands
+	trailingWhitespacesCommand := flag.NewFlagSet("trailing-whitespaces", flag.ExitOnError)
+	fileFlag := trailingWhitespacesCommand.String("file", "", "file to check")
+
 	if len(os.Args) == 1 {
 		printHelp()
 		os.Exit(0)
 	}
-	// check for '--version' and '--help' options
+	// check for using '--version' and '--help' options
 	for _, arg := range os.Args {
 		if arg == "--version" || arg == "-v" {
 			fmt.Println(FormattedVersion())
@@ -21,10 +26,22 @@ func init() {
 			os.Exit(0)
 		}
 	}
-}
 
-func main() {
-	fmt.Println("to be implemented...")
+	switch os.Args[1] {
+	case "trailing-whitespaces":
+		trailingWhitespacesCommand.Parse(os.Args[2:])
+	default:
+		fmt.Printf("fixla: '%s' is not a fixla command. See 'fixla --help'\n", os.Args[1])
+		os.Exit(1)
+	}
+
+	if trailingWhitespacesCommand.Parsed() {
+		if *fileFlag == "" {
+			fmt.Println("Please define the file using -path option.")
+		} else {
+			fmt.Println("//TODO: logic for trailing whatespaces processing here")
+		}
+	}
 }
 
 // printHelp provides a pretty usage message including a list of the correct
