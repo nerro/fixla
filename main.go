@@ -37,9 +37,9 @@ func main() {
 
 	if trailingWhitespacesCommand.Parsed() {
 		if *fileFlag == "" {
-			fmt.Println("Please define the file using -path option.")
+			printTrailingWhitespacesHelp()
 		} else {
-			fmt.Println("//TODO: logic for trailing whatespaces processing here")
+			handleTrailingWhitespacesCommand(*fileFlag)
 		}
 	}
 }
@@ -52,4 +52,18 @@ func printHelp() {
 	fmt.Println("Available commands are:")
 	fmt.Println("   trailing-whitespaces   Handle trailing whitespaces")
 	fmt.Println()
+}
+
+// printTrailingWhitespacesHelp provides a pretty help message explaining a usage
+// of 'trailing-whitespaces' command
+func printTrailingWhitespacesHelp() {
+	fmt.Println("usage: fixla trailing-whitespaces -file <file-path>")
+	fmt.Println()
+	fmt.Println("Options:")
+	fmt.Println("   -file   file to process")
+	fmt.Println()
+}
+
+func handleTrailingWhitespacesCommand(filePath string) {
+	//TODO: implement logic
 }
